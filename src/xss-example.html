@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XSS Example</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline';">
+</head>
+<body>
+  <div class="content"></div>
+  <button class="make-request">Make request</button>
+<script type="text/javascript">
+  document.querySelector('.make-request').addEventListener('click', e => {
+    fetch('http://localhost:8000/articles/911')
+      .then(res => res.json())
+      .then(body => {
+        document.querySelector('.content').innerHTML = body.content
+      })
+  })
+</script>
+</body>
+</html>
